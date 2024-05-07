@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://iiqydg3flirw"]
+[gd_scene load_steps=2 format=3 uid="uid://iiqydg3flirw"]
+
+[ext_resource type="Script" path="res://HouseTag.gd" id="1_rshle"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(260, 70)
 offset_right = 260.0
 offset_bottom = 70.0
 size_flags_horizontal = 3
+script = ExtResource("1_rshle")
 
 [node name="Name" type="LineEdit" parent="."]
 layout_mode = 1
@@ -41,9 +44,12 @@ text = "Pris"
 horizontal_alignment = 2
 
 [node name="Price3" type="Label" parent="."]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 39.0
 offset_right = 21.0
 offset_bottom = 62.0
 text = "%"
 horizontal_alignment = 2
+
+[connection signal="text_changed" from="Name" to="." method="_on_name_text_changed"]
