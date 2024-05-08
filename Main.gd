@@ -40,7 +40,7 @@ func calc_price():
 			rest = 0.0
 		total = 0.0
 		unit_rest = rest / num_houses
-		for house in $ScrollContainer/VBoxContainer.get_children():
+		for house in $GridContainer.get_children():
 			house.house_price += unit_rest * house.house_precent
 			total += house.house_price
 		rest = price[used_price] - total
@@ -48,18 +48,18 @@ func calc_price():
 	var the_last_penny = rest / num_houses
 	var tot := 0.0
 	
-	for house in $ScrollContainer/VBoxContainer.get_children():
+	for house in $GridContainer.get_children():
 		house.house_price += the_last_penny
 		house.get_node("Price").text = str(snapped(house.house_price, 0.01))
 		tot += house.house_price
-	print(tot)
+	$Total.text = "Sum: " + str(tot)
 
 
 func first_init():
 	for house in start_houses:
 		var a = tag.instantiate()
 		var b = tag.instantiate()
-		$ScrollContainer/VBoxContainer.add_child(a)
+		$GridContainer.add_child(a)
 		a.house_name = house
 		a.house_precent = start_houses[house][0]
 		a.get_node("Name").text = house
@@ -67,9 +67,9 @@ func first_init():
 
 
 func init_price():
-	num_houses = $ScrollContainer/VBoxContainer.get_child_count()
+	num_houses = $GridContainer.get_child_count()
 	price_per_house = price[used_price] / num_houses
-	for house in $ScrollContainer/VBoxContainer.get_children():
+	for house in $GridContainer.get_children():
 		house.house_price = price_per_house * house.house_precent
 
 
