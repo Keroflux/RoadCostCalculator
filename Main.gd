@@ -1,10 +1,10 @@
-extends Node2D
+extends Control
 
 var num_houses := 0
 var price := [496327.5, 380000.0]
 var used_price := 0
 
-var houses = {"11": [0.343, 0],
+var start_houses = {"11": [0.343, 0],
 				"15": [0.343, 0], 
 				"6": [0.632, 0], 
 				"14": [0.665, 0],
@@ -26,6 +26,7 @@ var ammont_to_split := 2000.0
 var tag = preload("res://HouseTag.tscn")
 
 func _ready():
+	first_init()
 	init_price()
 	calc_price()
 
@@ -39,38 +40,37 @@ func calc_price():
 			rest = 0.0
 		total = 0.0
 		unit_rest = rest / num_houses
-		for house in houses:
-			houses[house][1] += unit_rest * houses[house][0]
-			total += houses[house][1]
+		for house in $ScrollContainer/VBoxContainer.get_children():
+			house.house_price += unit_rest * house.house_precent
+			total += house.house_price
 		rest = price[used_price] - total
+		
 	var the_last_penny = rest / num_houses
-	for house in houses:
-		houses[house][1] += the_last_penny
-		var a = tag.instantiate()
-		$ScrollContainer/VBoxContainer.add_child(a)
-		a.get_node("Name").text = house
-		a.name = house
-		a.name_changed.connect(rename)
-		a.get_node("Precent").text = str(houses[house][0] * 100.0)
-		a.get_node("Price").text = str(snapped(houses[house][1], 0.01))
 	var tot := 0.0
-	for house in houses:
-		tot += houses[house][1]
+	
+	for house in $ScrollContainer/VBoxContainer.get_children():
+		house.house_price += the_last_penny
+		house.get_node("Price").text = str(snapped(house.house_price, 0.01))
+		tot += house.house_price
+	print(tot)
+
+
+func first_init():
+	for house in start_houses:
+		var a = tag.instantiate()
+		var b = tag.instantiate()
+		$ScrollContainer/VBoxContainer.add_child(a)
+		a.house_name = house
+		a.house_precent = start_houses[house][0]
+		a.get_node("Name").text = house
+		a.get_node("Precent").text = str(start_houses[house][0] * 100.0)
 
 
 func init_price():
-	num_houses = 0
-	for child in $ScrollContainer/VBoxContainer.get_children():
-		child.queue_free()
-	for key in houses:
-		num_houses += 1
+	num_houses = $ScrollContainer/VBoxContainer.get_child_count()
 	price_per_house = price[used_price] / num_houses
-	for key in houses:
-		houses[key][1] = price_per_house * houses[key][0]
-
-
-func rename(name, from):
-	print(name)
+	for house in $ScrollContainer/VBoxContainer.get_children():
+		house.house_price = price_per_house * house.house_precent
 
 
 func _on_button_pressed():
