@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://HouseTag.gd" id="1_rshle"]
 
 [node name="Panel" type="Panel"]
-custom_minimum_size = Vector2(260, 70)
-offset_right = 260.0
-offset_bottom = 70.0
+custom_minimum_size = Vector2(295, 115)
+offset_right = 292.0
+offset_bottom = 117.0
+size_flags_vertical = 4
 script = ExtResource("1_rshle")
 
 [node name="Name" type="LineEdit" parent="."]
@@ -19,37 +20,62 @@ alignment = 1
 
 [node name="Precent" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 35.0
-offset_right = 111.0
-offset_bottom = 66.0
+offset_left = 114.0
+offset_top = 37.0
+offset_right = 201.0
+offset_bottom = 68.0
 placeholder_text = "Prosent"
 
 [node name="Price" type="Label" parent="."]
 layout_mode = 0
-offset_left = 162.0
-offset_top = 39.0
-offset_right = 251.0
-offset_bottom = 62.0
+offset_left = 200.0
+offset_top = 88.0
+offset_right = 289.0
+offset_bottom = 111.0
 text = "35000 kr"
 
 [node name="Price2" type="Label" parent="."]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 39.0
-offset_right = 158.0
-offset_bottom = 62.0
+offset_left = 166.0
+offset_top = 88.0
+offset_right = 196.0
+offset_bottom = 111.0
 text = "Pris"
 horizontal_alignment = 2
 
 [node name="Price3" type="Label" parent="."]
 layout_mode = 0
 offset_left = 7.0
-offset_top = 39.0
-offset_right = 21.0
-offset_bottom = 62.0
-text = "%"
+offset_top = 37.0
+offset_right = 110.0
+offset_bottom = 60.0
+text = "Veiutnyttelse"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 23.0
+offset_bottom = 30.0
+text = "X"
+
+[node name="Precent2" type="LineEdit" parent="."]
+offset_left = 61.0
+offset_top = 76.0
+offset_right = 148.0
+offset_bottom = 107.0
+placeholder_text = "Prosent"
+
+[node name="Price4" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 80.0
+offset_right = 56.0
+offset_bottom = 103.0
+text = "Ekstra"
 horizontal_alignment = 2
 
 [connection signal="text_changed" from="Name" to="." method="_on_name_text_changed"]
 [connection signal="text_changed" from="Precent" to="." method="_on_precent_text_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="text_changed" from="Precent2" to="." method="_on_precent_2_text_changed"]
