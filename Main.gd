@@ -1,14 +1,12 @@
 extends Control
 
 var num_houses := 0
-var price := [496327.5, 380000.0, 381250]
-var used_price := 2
+var price := [334500.0, 300000.0, 381250]
+var used_price := 0
 
 var start_houses = {"11 Olsen": [0.343, 0],
-				"15 Olsens nabo": [0.343, 0.05], 
-				"6 Oming": [0.632, 0], 
-				"14 Brekke": [0.665, 0],
-				"18 Byggmester": [0.665, 0], 
+				"15 Georg": [0.343, 0.05], 
+				"14 Brekke": [0.665, 0], 
 				"21 Arne-Gunnar": [0.742, 0], 
 				"32 Hanseth": [1.0, 0.15],
 				"35 Brekke": [1.0, 0.15],
@@ -16,11 +14,13 @@ var start_houses = {"11 Olsen": [0.343, 0],
 				"34 Herland": [1.0, -0.1],
 				"59 Vilde og Stian": [1.0, 0],
 				"60 Annemor + utleie": [1.0, 0.10],
-				"40 Løvås": [1.0, 0.10],
-				"30 Han med hytten": [1.0, 0],
-				"Dan-Egil": [0.5, 0]
+				"40 Løvås +  utleie": [1.0, 0.10],
 				}
-				
+var excluded_houses = {"6 Oming": [0.632, 0],
+						"18 Byggmester": [0.665, 0],
+						"30 Han med hytten": [1.0, 0],
+						"Dan-Egil": [0.5, 0]
+						}
 var price_per_house := 0.0
 var ammont_to_split := 200.0
 var tag := preload("res://HouseTag.tscn")
@@ -60,7 +60,6 @@ func calc_price():
 func first_init():
 	for house in start_houses:
 		var a = tag.instantiate()
-		var b = tag.instantiate()
 		$GridContainer.add_child(a)
 		a.house_name = house
 		a.house_precent = start_houses[house][0]

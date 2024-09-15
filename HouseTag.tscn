@@ -61,6 +61,7 @@ offset_bottom = 30.0
 text = "X"
 
 [node name="Precent2" type="LineEdit" parent="."]
+layout_mode = 0
 offset_left = 61.0
 offset_top = 76.0
 offset_right = 148.0
@@ -68,6 +69,7 @@ offset_bottom = 107.0
 placeholder_text = "Prosent"
 
 [node name="Price4" type="Label" parent="."]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 80.0
 offset_right = 56.0
