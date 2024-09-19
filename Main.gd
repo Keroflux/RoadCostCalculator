@@ -2,25 +2,25 @@ extends Control
 
 var num_houses := 0
 var price := [334500.0, 300000.0, 381250]
-var used_price := 0
+var used_price := 334500.0
 
 var start_houses = {"11 Olsen": [0.343, 0],
-				"15 Georg": [0.343, 0.05], 
+				"15 Georg": [0.343, 0.1], 
 				"14 Brekke": [0.665, 0], 
 				"21 Arne-Gunnar": [0.742, 0], 
-				"32 Hanseth": [1.0, 0.15],
-				"35 Brekke": [1.0, 0.15],
-				"31 Dag-Atle + utleie": [1.0, 0.10],
-				"34 Herland": [1.0, -0.1],
+				"32 Hanseth": [1.0, 0.0],
+				"35 Brekke": [1.0, 0.0],
+				"31 Dag-Atle + utleie": [1.0, 0.25],
+				"34 Herland": [1.0, 0.0],
 				"59 Vilde og Stian": [1.0, 0],
-				"60 Annemor + utleie": [1.0, 0.10],
-				"40 Løvås +  utleie": [1.0, 0.10],
+				"60 Annemor + utleie": [1.0, 0.0],
+				"40 Løvås +  utleie": [1.0, 0.0],
+				"18 Byggmester": [0.665, 0],
+				"30 Han med hytten": [0.5, 0],
+				"Dan-Egil": [0.5, 0],
+				"6 Oming": [0.5, 0]
 				}
-var excluded_houses = {"6 Oming": [0.632, 0],
-						"18 Byggmester": [0.665, 0],
-						"30 Han med hytten": [1.0, 0],
-						"Dan-Egil": [0.5, 0]
-						}
+var excluded_houses = {"6 Oming": [0.632, 0]}
 var price_per_house := 0.0
 var ammont_to_split := 200.0
 var tag := preload("res://HouseTag.tscn")
@@ -44,7 +44,7 @@ func calc_price():
 		for house in $GridContainer.get_children():
 			house.house_price += unit_rest * (house.house_precent + house.house_extra_precent)
 			total += house.house_price
-		rest = price[used_price] - total
+		rest = used_price - total
 		
 	var the_last_penny = rest / num_houses
 	var tot := 0.0
@@ -70,8 +70,9 @@ func first_init():
 
 
 func init_price():
+	$CurrentPrice.text = str(used_price)
 	num_houses = $GridContainer.get_child_count()
-	price_per_house = price[used_price] / num_houses
+	price_per_house = used_price / num_houses
 	for house in $GridContainer.get_children():
 		house.house_price = price_per_house * (house.house_precent + house.house_extra_precent)
 
@@ -87,3 +88,7 @@ func reload():
 	first_init()
 	init_price()
 	calc_price()
+
+
+func _on_current_price_text_changed(new_text: String) -> void:
+	used_price = float(new_text)

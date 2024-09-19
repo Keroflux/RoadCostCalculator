@@ -70,4 +70,12 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="CurrentPrice" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 599.0
+offset_top = 579.0
+offset_right = 704.0
+offset_bottom = 610.0
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="text_changed" from="CurrentPrice" to="." method="_on_current_price_text_changed"]
